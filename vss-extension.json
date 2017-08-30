@@ -1,0 +1,55 @@
+{
+    "manifestVersion": 1,
+    "id": "vsts-jest-task",
+    "name": "Jest Test",
+    "version": "0.2.0",
+    "publisher": "Slawomirrosiek",
+    "targets": [
+        {
+            "id": "Microsoft.VisualStudio.Services"
+        }
+    ],    
+    "description": "Runs Jest tests",
+    "categories": [
+        "Build and release"
+    ],
+    "icons": {
+        "default": "images/jest-outline.png"        
+    },
+    "branding": {
+        "color": "#99424f",
+        "theme": "dark"
+    },
+    "tags": [
+        "jest",
+        "test",
+        "javascript"
+    ],
+    "repository": {
+        "type": "git",
+        "uri": "https://github.com/rosieks/vsts-jest-task"
+    },
+    "files": [
+        {
+            "path": "jest/index.js"
+        },
+        {
+            "path": "jest/task.json"
+        },
+        {
+            "path": "jest/icon.png"
+        }
+    ],
+    "contributions": [
+        {
+            "id": "jest-task",
+            "type": "ms.vss-distributed-task.task",
+            "targets": [
+                "ms.vss-distributed-task.tasks"
+            ],
+            "properties": {
+                "name": "jest"
+            }
+        }
+    ]
+}

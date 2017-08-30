@@ -1,0 +1,46 @@
+{
+    "id": "10161b19-8cbe-4948-9342-0041a494053b",
+    "name": "Jest",
+    "friendlyName": "Jest task",
+    "description": "Runs Jest tests",
+    "helpMarkDown": "",
+    "category": "Test",
+    "author": "Sławomir Rosiek",
+    "version": {
+        "Major": 0,
+        "Minor": 2,
+        "Patch": 0
+    },
+    "instanceNameFormat": "Run Jest tests",
+    "inputs": [
+        {
+            "name": "projects",
+            "type": "multiLine",
+            "label": "Projects",
+            "defaultValue": "",
+            "required": false,
+            "helpMarkDown": "Run tests from one or more projects."
+        },
+        {
+            "name": "codeCoverageEnabled",
+            "type": "boolean",
+            "label": "Code coverage enabled",
+            "defaultValue": false,
+            "required": false,
+            "helpMarkDown": "Collect code coverage information from the test run."
+        },
+        {
+            "name": "jestPath",
+            "type": "filePath",
+            "label": "Jest path",
+            "defaultValue": "",
+            "required": true,
+            "helpMarkDown": ""
+        }
+    ],
+    "execution": {
+        "Node": {
+            "target": "index.js"
+        }
+    }
+}
