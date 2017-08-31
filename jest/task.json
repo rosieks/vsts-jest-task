@@ -9,7 +9,7 @@
     "version": {
         "Major": 0,
         "Minor": 2,
-        "Patch": 0
+        "Patch": 2
     },
     "instanceNameFormat": "Run Jest tests",
     "inputs": [
@@ -34,7 +34,7 @@
             "type": "filePath",
             "label": "Jest path",
             "defaultValue": "",
-            "required": true,
+            "required": false,
             "helpMarkDown": ""
         }
     ],

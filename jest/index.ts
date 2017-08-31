@@ -13,10 +13,14 @@ async function run() {
     }
 
     await publishTestResults(projects);
+    if (codeCoverageEnabled) {
+        await publishCodeCoverage(projects);
+    }
 }
 
 async function runJest(projectPath) {
-    let jest = tl.tool(jestPath);
+    let path = jestPath || './node_modules/.bin/jest.cmd';
+    let jest = tl.tool(path);
 
     let options: tr.IExecOptions = {
         failOnStdErr: false,
@@ -31,7 +35,7 @@ async function runJest(projectPath) {
 
     jest.arg(['--testResultsProcessor', './node_modules/jest-junit']);
     if (codeCoverageEnabled) {
-        jest.arg('--coverage');
+        jest.arg(['--coverage', '--coverageReporters', 'cobertura']);
     }
 
     try {
@@ -46,6 +50,15 @@ async function publishTestResults(projects) {
     let testResults = tl.findMatch(null, projects.map(p => path.join(p, 'junit.xml')));
     let tp = new tl.TestPublisher('JUnit');
     tp.publish(testResults, null, null, null, null, null);
+}
+
+async function publishCodeCoverage(projects) {
+    let testResults = tl.findMatch(null, projects.map(p => path.join(p, 'coverage', 'cobertura-coverage.xml')));
+    let ccPublisher = new tl.CodeCoveragePublisher();
+    for (var i = 0; i < testResults.length; i++) {
+        let testResult = testResults[i];
+        ccPublisher.publish('Cobertura', testResult, null, null);
+    }
 }
 
 run();
