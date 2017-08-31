@@ -2,7 +2,7 @@
     "manifestVersion": 1,
     "id": "vsts-jest-task",
     "name": "Jest Test",
-    "version": "0.2.2",
+    "version": "0.2.9",
     "publisher": "Slawomirrosiek",
     "targets": [
         {

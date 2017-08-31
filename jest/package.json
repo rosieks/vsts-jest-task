@@ -9,7 +9,8 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "vsts-task-lib": "^2.0.7"
+    "vsts-task-lib": "^2.0.7",
+    "istanbul-combine": "0.3.0"
   },
   "devDependencies": {
     "@types/node": "^8.0.25",

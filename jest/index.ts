@@ -35,7 +35,7 @@ async function runJest(projectPath) {
 
     jest.arg(['--testResultsProcessor', './node_modules/jest-junit']);
     if (codeCoverageEnabled) {
-        jest.arg(['--coverage', '--coverageReporters', 'cobertura']);
+        jest.arg(['--coverage', '--coverageReporters', 'json']);
     }
 
     try {
@@ -53,12 +53,44 @@ async function publishTestResults(projects) {
 }
 
 async function publishCodeCoverage(projects) {
-    let testResults = tl.findMatch(null, projects.map(p => path.join(p, 'coverage', 'cobertura-coverage.xml')));
+
+    await npmInstall('istanbul-combine');
+    await runApp('./node_modules/.bin/istanbul-combine.cmd', '-r cobertura -r html **/coverage-final.json');
+
+    let summaryResults = tl.findMatch(null, 'coverage/cobertura-coverage.xml');
+    let reportDirectory = path.join(process.cwd(), 'coverage');
     let ccPublisher = new tl.CodeCoveragePublisher();
-    for (var i = 0; i < testResults.length; i++) {
-        let testResult = testResults[i];
-        ccPublisher.publish('Cobertura', testResult, null, null);
-    }
+    ccPublisher.publish('Cobertura', summaryResults, reportDirectory, null);
+}
+
+async function npmInstall(moduleName) {
+    var npm = tl.tool(tl.which('npm', true));
+    npm.arg(['install', moduleName]);
+    await npm.exec({
+        failOnStdErr: false,
+        cwd: process.cwd(),
+        env: <any>process.env,
+        silent: false,
+        ignoreReturnCode: false,
+        outStream: undefined,
+        errStream: undefined,
+        windowsVerbatimArguments: undefined
+    });
+}
+
+async function runApp(app, args) {
+    var node = tl.tool(path.join(process.cwd(), app));
+    node.line(args);
+    await node.exec({
+        failOnStdErr: false,
+        cwd: process.cwd(),
+        env: <any>process.env,
+        silent: false,
+        ignoreReturnCode: false,
+        outStream: undefined,
+        errStream: undefined,
+        windowsVerbatimArguments: undefined
+    });
 }
 
 run();
