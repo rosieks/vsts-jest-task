@@ -32,7 +32,7 @@
         {
             "name": "jestPath",
             "type": "filePath",
-            "label": "Jest path",
+            "label": "Jest CLI path",
             "defaultValue": "",
             "required": false,
             "helpMarkDown": ""
